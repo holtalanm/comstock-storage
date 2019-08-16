@@ -1,12 +1,29 @@
 import Storage from './Storage';
 
-export default class ComstockLocalStorage implements Storage {
+class ComstockLocalStorage implements Storage {
+    private static pInstance: ComstockLocalStorage | null = null;
+
+    private constructor() {}
+
+    static get instance(): ComstockLocalStorage {
+        if (ComstockLocalStorage.pInstance == null) {
+            ComstockLocalStorage.pInstance = new ComstockLocalStorage();
+        }
+
+        return ComstockLocalStorage.pInstance;
+    }
 
     public getItem(key: string): Promise<string | null> {
         return Promise.resolve(window.localStorage.getItem(key));
     }
 
-    public setItem(key: string, value: string): Promise<void> {
-        return Promise.resolve(window.localStorage.setItem(key, value));
+    public setItem(key: string, value: string | null): Promise<void> {
+        if (value == null) {
+            return Promise.resolve(window.localStorage.removeItem(key));
+        } else {
+            return Promise.resolve(window.localStorage.setItem(key, value));
+        }
     }
 }
+
+export default ComstockLocalStorage.instance;
