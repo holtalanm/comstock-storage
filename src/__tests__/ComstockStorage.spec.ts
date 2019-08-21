@@ -1,3 +1,4 @@
+import '../../test/LocalStorageMock';
 import FooStore from '../../test/FooStore';
 
 describe('ComstockStorage', () => {
