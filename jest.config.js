@@ -1,10 +1,11 @@
 module.exports = {
-    'roots': [
+    roots: [
         '<rootDir>/src',
         '<rootDir>/test',
     ],
-    'transform': {
+    transform: {
         '^.+\\.jsx?$': 'babel-jest',
         '^.+\\.tsx?$': 'ts-jest',
-    }
+    },
+    transformIgnorePatterns: ['/node_modules/(?!(comstock)/)']
 }
