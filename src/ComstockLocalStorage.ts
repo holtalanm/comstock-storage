@@ -1,5 +1,10 @@
 import Storage from './Storage';
 
+/**
+ * Storage implementation that uses window.localStorage as the backing storage.
+ *
+ * This is a singleton, as the Storage object is completely stateless and just delegates to localStorage
+ */
 class ComstockLocalStorage implements Storage {
     private static pInstance: ComstockLocalStorage | null = null;
 

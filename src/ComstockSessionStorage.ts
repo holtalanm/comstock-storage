@@ -1,5 +1,10 @@
 import Storage from './Storage';
 
+/**
+ * Storage implementation that uses window.sessionStorage as the backing storage.
+ *
+ * This is a singleton, as the Storage object is completely stateless and just delegates to sessionStorage
+ */
 class ComstockSessionStorage implements Storage {
     private static pInstance: ComstockSessionStorage | null = null;
 

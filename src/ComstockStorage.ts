@@ -4,6 +4,9 @@ import Storage from './Storage';
 import ComstockLocalStorage from './ComstockLocalStorage';
 import ComstockStorageOptions from './ComstockStorageOptions';
 
+/**
+ * StorePlugin instance that will store the Store state into the Storage specified within the options.
+ */
 export default class ComstockStorage implements StorePlugin {
     private readonly storage: Storage;
     private readonly properties: string[];
