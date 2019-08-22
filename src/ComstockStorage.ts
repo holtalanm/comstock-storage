@@ -22,21 +22,24 @@ export default class ComstockStorage implements StorePlugin {
     }
 
     public async afterValueChange(event: StorePluginValueChangeEvent<any>): Promise<void> {
+        const storeState = event.store.getState();
         if (this.properties.length > 0) {
             // Only hit storage if a property we care about was modified
             if (this.properties.includes(event.property)) {
-                const currentStoredState = await this.getStorageValue();
-                currentStoredState[event.property] = event.newValue;
+                const propertyValues: any = {};
+                this.properties.forEach((prop) => {
+                    propertyValues[prop] = storeState[prop];
+                });
                 await this.debouncedSetItem(
                     this.storageKey,
-                    JSON.stringify(currentStoredState),
+                    JSON.stringify(propertyValues),
                 );
             }
         } else {
             // No specific properties to watch?  Hit storage on all state changes.  We don't discriminate.
             await this.debouncedSetItem(
                 this.storageKey,
-                JSON.stringify(event.store.getState()),
+                JSON.stringify(storeState),
             );
         }
     }
